@@ -1,0 +1,1064 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Majeski Solar Energy - Your Family's Partner in Powering the Future</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+    <style>
+        :root {
+            --midnight-blue: #0A2240;
+            --sunrise-gold: #FFC72C;
+            --clean-teal: #00A99D;
+            --cloud-white: #F8F9FA;
+            --graphite: #333333;
+            --graphite-light: #555;
+            --header-height: 80px;
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--cloud-white);
+            color: var(--graphite);
+            line-height: 1.6;
+            overflow-x: hidden;
+            cursor: none;
+        }
+        
+        body.menu-open {
+            overflow: hidden;
+        }
+
+        .cursor-dot, .cursor-outline {
+            pointer-events: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            z-index: 9999;
+            mix-blend-mode: difference;
+            transition: opacity 0.3s, transform 0.3s;
+        }
+        .cursor-dot {
+            width: 8px;
+            height: 8px;
+            background-color: var(--cloud-white);
+        }
+        .cursor-outline {
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.5);
+            transition: width 0.2s, height 0.2s, background-color 0.2s;
+        }
+        .cursor-outline.hover {
+            width: 60px;
+            height: 60px;
+            background-color: rgba(255, 199, 44, 0.3);
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--midnight-blue);
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        h1 { font-size: 3.5rem; }
+        h2 { font-size: 2.8rem; }
+        h3 { font-size: 1.8rem; }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        section {
+            padding: 6rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+        .section-title h2 {
+            margin-bottom: 0.5rem;
+        }
+        .section-title p {
+            font-size: 1.1rem;
+            color: var(--graphite-light);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.9rem 2.2rem;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            text-decoration: none;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            cursor: none;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        .btn-primary {
+            background-color: var(--sunrise-gold);
+            color: var(--midnight-blue);
+            box-shadow: 0 4px 15px rgba(255, 199, 44, 0.3);
+        }
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(255, 199, 44, 0.5);
+        }
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--midnight-blue);
+            border: 2px solid var(--clean-teal);
+        }
+        .btn-secondary:hover {
+            background-color: var(--clean-teal);
+            color: var(--cloud-white);
+        }
+
+        /* --- Header --- */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background-color: rgba(10, 34, 64, 0.8);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            padding: 1rem 0;
+        }
+        .header.scrolled {
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 0.5rem 0;
+        }
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--cloud-white);
+            text-decoration: none;
+        }
+        .logo span { color: var(--sunrise-gold); }
+        .nav-links {
+            list-style: none;
+            display: flex;
+        }
+        .nav-links li {
+            margin-left: 2.5rem;
+        }
+        .nav-links a {
+            color: var(--cloud-white);
+            text-decoration: none;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            position: relative;
+            padding: 0.5rem 0;
+        }
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--sunrise-gold);
+            transition: width 0.3s ease;
+        }
+        .nav-links a:hover::after, .nav-links a.active::after {
+            width: 100%;
+        }
+
+        /* --- Hamburger Menu --- */
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            z-index: 1001;
+        }
+        .hamburger .bar {
+            display: block;
+            width: 25px;
+            height: 3px;
+            margin: 5px auto;
+            background-color: var(--cloud-white);
+            transition: all 0.3s ease-in-out;
+        }
+        
+        /* --- Hero Section --- */
+        #home {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background-image: linear-gradient(rgba(10, 34, 64, 0.7), rgba(10, 34, 64, 0.7)), url('https://images.unsplash.com/photo-1599797258249-1c66f6d231a4?q=80&w=2940&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: var(--cloud-white);
+        }
+        .hero-content {
+            max-width: 900px;
+            animation: fadeIn 1.5s ease-out;
+        }
+        .hero-content h1 {
+            color: var(--cloud-white);
+            margin-bottom: 1rem;
+        }
+        .hero-content .highlight {
+            color: var(--sunrise-gold);
+        }
+        .hero-content p {
+            font-size: 1.25rem;
+            margin-bottom: 2rem;
+            color: rgba(248, 249, 250, 0.9);
+        }
+        
+        /* Arc divider */
+        .arc-divider {
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            width: 100%;
+            overflow: hidden;
+            line-height: 0;
+        }
+        .arc-divider svg {
+            position: relative;
+            display: block;
+            width: calc(100% + 1.3px);
+            height: 100px;
+        }
+        .arc-divider .shape-fill {
+            fill: var(--cloud-white);
+        }
+
+        /* --- Trust Bar Section --- */
+        .trust-bar {
+            background-color: var(--midnight-blue);
+            padding: 1.5rem 0;
+            border-bottom: 3px solid var(--sunrise-gold);
+        }
+        .trust-bar .container {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .trust-item {
+            color: var(--cloud-white);
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-align: center;
+            margin: 0.5rem 1rem;
+        }
+
+        /* --- About Section --- */
+        #about .container {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 4rem;
+            align-items: center;
+        }
+        .about-image {
+            position: relative;
+        }
+        .about-image img {
+            width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 15px 35px rgba(10, 34, 64, 0.15);
+        }
+        .about-image::before {
+            content: '';
+            position: absolute;
+            top: -20px;
+            left: -20px;
+            width: 100%;
+            height: 100%;
+            border: 5px solid var(--clean-teal);
+            border-radius: 10px;
+            z-index: -1;
+            transition: all 0.3s ease;
+        }
+        #about:hover .about-image::before {
+            transform: translate(10px, 10px);
+        }
+        .about-content ul {
+            list-style: none;
+            margin-top: 1.5rem;
+        }
+        .about-content ul li {
+            padding-left: 30px;
+            position: relative;
+            margin-bottom: 1rem;
+        }
+        .about-content ul li::before {
+            content: '✓';
+            color: var(--clean-teal);
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+            font-size: 1.2rem;
+        }
+
+        /* --- How It Works Section --- */
+        .how-it-works {
+            background-color: #ffffff;
+        }
+        .how-steps {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            text-align: center;
+        }
+        .step {
+            padding: 2rem;
+            border: 1px solid #e0e0e0;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+        .step:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(10, 34, 64, 0.1);
+        }
+        .step-icon {
+            font-size: 3rem;
+            color: var(--clean-teal);
+            margin-bottom: 1rem;
+            display: inline-block;
+            background-color: rgba(0, 169, 157, 0.1);
+            width: 80px;
+            height: 80px;
+            line-height: 80px;
+            border-radius: 50%;
+        }
+        .step h3 {
+            margin-bottom: 0.5rem;
+        }
+
+        /* --- Services Section --- */
+        #services {
+            background-color: var(--midnight-blue);
+        }
+        #services .section-title h2, #services .section-title p {
+            color: var(--cloud-white);
+        }
+        .service-cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+        .service-card {
+            background-color: #fff;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+        }
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
+        .service-card .card-image {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+        .service-card .card-image::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to top, rgba(10, 34, 64, 0.6), transparent);
+        }
+        .service-card .card-content {
+            padding: 2rem;
+        }
+        .service-card h3 {
+            margin-bottom: 1rem;
+            color: var(--midnight-blue);
+        }
+        .service-card .btn {
+            margin-top: 1rem;
+        }
+
+        /* --- Projects Section --- */
+        #projects {
+            background-color: #ffffff;
+        }
+        .project-gallery {
+            position: relative;
+            padding: 0 50px;
+        }
+        .swiper-slide {
+            background-position: center;
+            background-size: cover;
+            width: 400px;
+            height: 500px;
+            border-radius: 15px;
+            overflow: hidden;
+        }
+        .project-info {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 2rem;
+            background: linear-gradient(to top, rgba(10, 34, 64, 0.9), transparent);
+            color: white;
+            transform: translateY(100%);
+            transition: transform 0.4s ease-in-out;
+        }
+        .swiper-slide:hover .project-info {
+            transform: translateY(0);
+        }
+        .project-info h4 {
+            color: var(--sunrise-gold);
+            margin-bottom: 0.5rem;
+        }
+        
+        /* --- Calculator Section --- */
+        #calculator {
+            background: linear-gradient(45deg, var(--midnight-blue), #183d6e);
+            color: var(--cloud-white);
+        }
+        #calculator .container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+        .calculator-form {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 2.5rem;
+            border-radius: 10px;
+        }
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 0.8rem;
+            border-radius: 5px;
+            border: none;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+        }
+        #calculator-result {
+            margin-top: 2rem;
+            text-align: center;
+            background: var(--cloud-white);
+            color: var(--midnight-blue);
+            padding: 1.5rem;
+            border-radius: 10px;
+        }
+        #calculator-result p {
+            margin-bottom: 0.5rem;
+            font-size: 1.2rem;
+        }
+        #savings-amount {
+            font-size: 2.5rem;
+            font-family: 'Montserrat', sans-serif;
+            color: var(--clean-teal);
+            font-weight: 700;
+        }
+
+        /* --- Contact Section --- */
+        #contact {
+            background-color: var(--cloud-white);
+        }
+        #contact .container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: flex-start;
+        }
+        .contact-form {
+            width: 100%;
+        }
+        .contact-form .form-group {
+            margin-bottom: 1.5rem;
+        }
+        .contact-form label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--midnight-blue);
+            font-weight: 600;
+        }
+        .contact-form input, .contact-form textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+        .contact-form input:focus, .contact-form textarea:focus {
+            outline: none;
+            border-color: var(--clean-teal);
+        }
+        .contact-info p {
+            margin-bottom: 1rem;
+        }
+        .contact-info strong {
+            color: var(--midnight-blue);
+        }
+
+        /* --- Footer --- */
+        .footer {
+            background-color: var(--midnight-blue);
+            color: var(--cloud-white);
+            padding: 4rem 0 2rem;
+            text-align: center;
+        }
+        .footer-logo {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--cloud-white);
+            text-decoration: none;
+            font-family: 'Montserrat';
+        }
+        .footer-logo span { color: var(--sunrise-gold); }
+        .footer-links {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+        .footer-links li {
+            margin: 0 1rem;
+        }
+        .footer-links a {
+            color: var(--cloud-white);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        .footer-links a:hover {
+            color: var(--sunrise-gold);
+        }
+        .social-icons {
+            margin-bottom: 2rem;
+        }
+        .social-icons a {
+            color: var(--cloud-white);
+            font-size: 1.5rem;
+            margin: 0 0.8rem;
+            text-decoration: none;
+            transition: color 0.3s, transform 0.3s;
+            display: inline-block;
+        }
+        .social-icons a:hover {
+            color: var(--clean-teal);
+            transform: translateY(-3px);
+        }
+        .copyright {
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+        
+        /* Animation Classes */
+        [data-aos] {
+            opacity: 0;
+            transition-property: transform, opacity;
+        }
+        [data-aos="fade-up"] {
+            transform: translateY(50px);
+        }
+        [data-aos="fade-in"] {
+            transform: scale(0.95);
+        }
+        body.aos-animate [data-aos="fade-up"] {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        body.aos-animate [data-aos="fade-in"] {
+            transform: scale(1);
+            opacity: 1;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* --- Responsive Design --- */
+        @media (max-width: 992px) {
+            h1 { font-size: 2.8rem; }
+            h2 { font-size: 2.2rem; }
+            
+            #about .container, #calculator .container, #contact .container {
+                grid-template-columns: 1fr;
+            }
+
+            .service-cards, .how-steps {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 100%;
+                height: 100vh;
+                background-color: var(--midnight-blue);
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                transition: right 0.5s ease-in-out;
+            }
+            .nav-links.active {
+                right: 0;
+            }
+            .nav-links li {
+                margin: 2rem 0;
+            }
+            .nav-links a {
+                font-size: 1.5rem;
+            }
+            .hamburger {
+                display: block;
+            }
+            .hamburger.active .bar:nth-child(2) { opacity: 0; }
+            .hamburger.active .bar:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+            .hamburger.active .bar:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+            .service-cards, .how-steps {
+                grid-template-columns: 1fr;
+            }
+
+            #home {
+                background-attachment: scroll;
+            }
+            .hero-content h1 { font-size: 2.2rem; }
+            .hero-content p { font-size: 1.1rem; }
+
+            .project-gallery { padding: 0; }
+            .swiper-slide { width: 300px; height: 400px; }
+            
+            .trust-item { font-size: 0.8rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="cursor-dot"></div>
+    <div class="cursor-outline"></div>
+
+    <header class="header" id="header">
+        <div class="container navbar">
+            <a href="#home" class="logo">Majeski<span>Solar</span></a>
+            <ul class="nav-links" id="nav-links">
+                <li><a href="#home" class="active">Home</a></li>
+                <li><a href="#about">About Us</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#calculator">Savings</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <div class="hamburger" id="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section id="home">
+            <div class="hero-content">
+                <h1>Unlock Energy Independence. <br>Power Your Home with California's <span class="highlight">Trusted Family Solar Experts.</span></h1>
+                <p>NABCEP Certified Solar, Battery Storage, and EV Charging for the Central Valley.</p>
+                <a href="#contact" class="btn btn-primary">Get My Free Solar Quote</a>
+            </div>
+            <div class="arc-divider">
+                <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                    <path d="M1200 120L0 120 0 0 1200 0 1200 120z" class="shape-fill" style="opacity:0.1;"></path>
+                    <path d="M600,112.77C268.63,112.77,0,65.52,0,7.23V120H1200V7.23C1200,65.52,931.37,112.77,600,112.77Z" class="shape-fill"></path>
+                </svg>
+            </div>
+        </section>
+
+        <div class="trust-bar">
+            <div class="container">
+                <div class="trust-item" data-aos="fade-up" data-aos-delay="100">Family-Owned & Operated</div>
+                <div class="trust-item" data-aos="fade-up" data-aos-delay="200">NABCEP Certified Professionals</div>
+                <div class="trust-item" data-aos="fade-up" data-aos-delay="300">Enphase Premier Installer</div>
+                <div class="trust-item" data-aos="fade-up" data-aos-delay="400">5-Star Rated Service</div>
+            </div>
+        </div>
+        
+        <section id="about">
+            <div class="container">
+                <div class="about-image" data-aos="fade-in">
+                    <img src="https://images.unsplash.com/photo-1542900743-a0481152d431?q=80&w=2938&auto=format&fit=crop" alt="The Majeski family team">
+                </div>
+                <div class="about-content" data-aos="fade-up">
+                    <h2 class="section-title" style="text-align: left; margin-bottom: 2rem;">Quality You Can Trust. From a Family That Cares.</h2>
+                    <p>We're not just another solar company; we're your neighbors. As a family-owned and operated business in the Central Valley, Majeski Solar Energy is built on a foundation of honesty, integrity, and a personal commitment to every customer we serve.</p>
+                    <ul>
+                        <li><strong>NABCEP Certified Expertise:</strong> Our team holds the highest certification in the solar industry, ensuring your system is designed and installed to the highest standards.</li>
+                        <li><strong>Uncompromising Quality:</strong> We use only premium, time-tested equipment to guarantee performance and reliability for decades to come.</li>
+                        <li><strong>Transparent Process:</strong> From the first consultation to final activation, we keep you informed every step of the way. No surprises, just clean energy.</li>
+                        <li><strong>Local & Accountable:</strong> We live and work in the same community as you. Our reputation is everything, and we stand behind our work.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section class="how-it-works">
+            <div class="container">
+                <div class="section-title" data-aos="fade-up">
+                    <h2>Your Path to Energy Freedom in 3 Simple Steps</h2>
+                    <p>We've streamlined the process of going solar to make it as simple and stress-free as possible.</p>
+                </div>
+                <div class="how-steps">
+                    <div class="step" data-aos="fade-up" data-aos-delay="100">
+                        <div class="step-icon">1</div>
+                        <h3>Consultation & Design</h3>
+                        <p>We start with a free, no-obligation consultation to understand your energy needs and design a custom solar system perfect for your home or business.</p>
+                    </div>
+                    <div class="step" data-aos="fade-up" data-aos-delay="200">
+                        <div class="step-icon">2</div>
+                        <h3>Seamless Installation</h3>
+                        <p>Our NABCEP certified team handles all permitting and installs your system with meticulous care, ensuring a clean and efficient setup.</p>
+                    </div>
+                    <div class="step" data-aos="fade-up" data-aos-delay="300">
+                        <div class="step-icon">3</div>
+                        <h3>Activation & Savings</h3>
+                        <p>We coordinate with your utility for final inspection and activation. Then, you can sit back and watch the savings roll in from your own clean power.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="services">
+            <div class="container">
+                <div class="section-title" data-aos="fade-up">
+                    <h2>Your Complete Clean Energy Solution</h2>
+                    <p>We are a full-service energy provider, offering a complete ecosystem to power your future.</p>
+                </div>
+                <div class="service-cards">
+                    <div class="service-card" data-aos="fade-up" data-aos-delay="100">
+                        <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1508935492238-c689f2f81a31?q=80&w=2874&auto=format&fit=crop');"></div>
+                        <div class="card-content">
+                            <h3>Residential & Commercial Solar</h3>
+                            <p>Custom-designed solar panel systems to eliminate your electric bill and reduce your carbon footprint.</p>
+                            <a href="#" class="btn btn-secondary">Learn More</a>
+                        </div>
+                    </div>
+                    <div class="service-card" data-aos="fade-up" data-aos-delay="200">
+                        <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1633682221759-90d5f8389476?q=80&w=2942&auto=format&fit=crop');"></div>
+                        <div class="card-content">
+                            <h3>Solar Battery Storage</h3>
+                            <p>Gain true energy independence and protect your home from outages with state-of-the-art Enphase battery systems.</p>
+                            <a href="#" class="btn btn-secondary">Explore Batteries</a>
+                        </div>
+                    </div>
+                    <div class="service-card" data-aos="fade-up" data-aos-delay="300">
+                        <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1617833418247-073c683c3e7a?q=80&w=2940&auto=format&fit=crop');"></div>
+                        <div class="card-content">
+                            <h3>EV Charger Installation</h3>
+                            <p>Power your electric vehicle with the sun. We install fast, convenient, and reliable EV chargers for your home.</p>
+                            <a href="#" class="btn btn-secondary">Charge Up</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="projects">
+            <div class="container">
+                <div class="section-title" data-aos="fade-up">
+                    <h2>Our Work in the Central Valley</h2>
+                    <p>We're proud of the quality and craftsmanship we deliver. Here are a few of our recent projects.</p>
+                </div>
+            </div>
+             <div class="project-gallery" data-aos="fade-in">
+                <div class="swiper-container">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide" style="background-image:url('https://images.unsplash.com/photo-1624343166993-376a5a043485?q=80&w=2940&auto=format&fit=crop')">
+                            <div class="project-info"><h4>10.2 kW System</h4><p>Fresno, CA</p></div>
+                        </div>
+                        <div class="swiper-slide" style="background-image:url('https://images.unsplash.com/photo-1624343166948-466541f2f8d3?q=80&w=2940&auto=format&fit=crop')">
+                            <div class="project-info"><h4>8.5 kW System + Battery</h4><p>Clovis, CA</p></div>
+                        </div>
+                        <div class="swiper-slide" style="background-image:url('https://images.unsplash.com/photo-1617498725895-39498a4754c7?q=80&w=2940&auto=format&fit=crop')">
+                           <div class="project-info"><h4>Commercial 50 kW System</h4><p>Madera, CA</p></div>
+                        </div>
+                        <div class="swiper-slide" style="background-image:url('https://images.unsplash.com/photo-1558502804-c9f280b18f70?q=80&w=2940&auto=format&fit=crop')">
+                            <div class="project-info"><h4>12 kW System</h4><p>Visalia, CA</p></div>
+                        </div>
+                        <div class="swiper-slide" style="background-image:url('https://images.unsplash.com/photo-1624343166995-18a7a8f1523c?q=80&w=2940&auto=format&fit=crop')">
+                            <div class="project-info"><h4>9.8 kW System + EV Charger</h4><p>Sanger, CA</p></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="calculator">
+            <div class="container">
+                <div class="calculator-content" data-aos="fade-up">
+                    <h2 class="section-title" style="text-align: left; margin-bottom: 2rem;">Ready to See Your Savings?</h2>
+                    <p>Use our simple calculator to get an instant estimate of how much you could save over 25 years by switching to solar. Just enter your average monthly electric bill to get started.</p>
+                    <p>This provides a preliminary estimate based on average production and electricity rate increases. For a precise quote, contact us for a free home assessment.</p>
+                </div>
+                <div class="calculator-form" data-aos="fade-in" data-aos-delay="200">
+                    <h3>Solar Savings Estimator</h3>
+                    <div class="form-group">
+                        <label for="electric-bill">Average Monthly Electric Bill ($)</label>
+                        <input type="number" id="electric-bill" placeholder="e.g., 250">
+                    </div>
+                    <button id="calculate-btn" class="btn btn-primary">Calculate My Savings</button>
+                    <div id="calculator-result" style="display: none;">
+                        <p>Your Estimated 25-Year Savings:</p>
+                        <span id="savings-amount">$0</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact">
+            <div class="container">
+                <div class="contact-info" data-aos="fade-up">
+                    <h2 class="section-title" style="text-align: left; margin-bottom: 2rem;">Get Your Free, No-Obligation Quote</h2>
+                    <p>Ready to take the next step toward energy independence? Fill out the form, and one of our family's solar experts will get in touch to provide a custom quote tailored to your home and energy goals.</p>
+                    <p><strong>Phone:</strong> (559) 555-SOLAR</p>
+                    <p><strong>Email:</strong> quotes@majeskisolarenergy.com</p>
+                    <p><strong>Service Area:</strong> Fresno, Clovis, Madera, Visalia, and the entire California Central Valley.</p>
+                </div>
+                <form class="contact-form" action="#" method="post" data-aos="fade-in" data-aos-delay="200">
+                    <div class="form-group">
+                        <label for="name">Full Name</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" name="phone">
+                    </div>
+                     <div class="form-group">
+                        <label for="message">Message (Optional)</label>
+                        <textarea id="message" name="message" rows="4"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Request My Quote</button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <a href="#home" class="footer-logo">Majeski<span>Solar</span></a>
+            <ul class="footer-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <div class="social-icons">
+                 <!-- Using placeholder icons -->
+                 <a href="#"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.162 6.162 6.162 6.162-2.759 6.162-6.162-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></a>
+                <a href="#"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.616 1.922 2.397 3.328 4.491 3.372-1.753 1.373-3.962 2.193-6.329 2.193-.41 0-.814-.024-1.21-.071 2.268 1.46 4.978 2.313 7.892 2.313 9.471 0 14.654-7.833 14.61-14.655 0-.223-.005-.446-.014-.668.998-.722 1.864-1.623 2.56-2.663z"/></svg></a>
+                <a href="#"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z"/></svg></a>
+            </div>
+            <p class="copyright">&copy; 2024 Majeski Solar Energy. All Rights Reserved. Family-Owned & Operated in the Central Valley.</p>
+        </div>
+    </footer>
+    
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // --- Custom Cursor ---
+            const cursorDot = document.querySelector('.cursor-dot');
+            const cursorOutline = document.querySelector('.cursor-outline');
+            const interactiveElements = document.querySelectorAll('a, button, input, textarea, .step, .service-card');
+
+            window.addEventListener('mousemove', e => {
+                const posX = e.clientX;
+                const posY = e.clientY;
+
+                cursorDot.style.left = `${posX}px`;
+                cursorDot.style.top = `${posY}px`;
+
+                cursorOutline.animate({
+                    left: `${posX}px`,
+                    top: `${posY}px`
+                }, { duration: 500, fill: 'forwards' });
+            });
+
+            interactiveElements.forEach(el => {
+                el.addEventListener('mouseenter', () => {
+                    cursorOutline.classList.add('hover');
+                });
+                el.addEventListener('mouseleave', () => {
+                    cursorOutline.classList.remove('hover');
+                });
+            });
+
+            // --- Sticky Header & Active Nav Link ---
+            const header = document.getElementById('header');
+            const navLinks = document.querySelectorAll('.nav-links a');
+            const sections = document.querySelectorAll('section');
+
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    header.classList.add('scrolled');
+                } else {
+                    header.classList.remove('scrolled');
+                }
+
+                let current = '';
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    if (pageYOffset >= sectionTop - header.clientHeight - 50) {
+                        current = section.getAttribute('id');
+                    }
+                });
+                
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href').includes(current)) {
+                        link.classList.add('active');
+                    }
+                });
+            });
+
+            // --- Hamburger Menu ---
+            const hamburger = document.getElementById('hamburger');
+            const navMenu = document.getElementById('nav-links');
+
+            hamburger.addEventListener('click', () => {
+                hamburger.classList.toggle('active');
+                navMenu.classList.toggle('active');
+                document.body.classList.toggle('menu-open');
+            });
+
+            navLinks.forEach(link => link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                navMenu.classList.remove('active');
+                document.body.classList.remove('menu-open');
+            }));
+
+            // --- Swiper JS for Projects ---
+            const swiper = new Swiper('.swiper-container', {
+                effect: 'coverflow',
+                grabCursor: true,
+                centeredSlides: true,
+                slidesPerView: 'auto',
+                loop: true,
+                coverflowEffect: {
+                    rotate: 50,
+                    stretch: 0,
+                    depth: 100,
+                    modifier: 1,
+                    slideShadows: true,
+                },
+                autoplay: {
+                    delay: 3000,
+                    disableOnInteraction: false,
+                },
+            });
+            
+            // --- Savings Calculator ---
+            const calculateBtn = document.getElementById('calculate-btn');
+            calculateBtn.addEventListener('click', () => {
+                const billInput = document.getElementById('electric-bill');
+                const billAmount = parseFloat(billInput.value);
+                const resultDiv = document.getElementById('calculator-result');
+                const savingsAmountSpan = document.getElementById('savings-amount');
+
+                if (isNaN(billAmount) || billAmount <= 0) {
+                    alert('Please enter a valid monthly bill amount.');
+                    return;
+                }
+
+                // Simplified calculation logic
+                const annualBill = billAmount * 12;
+                const totalBillOver25Years = annualBill * 25 * 1.03; // Assume 3% annual rate increase
+                const estimatedSystemCost = billAmount * 50; // A very rough estimate
+                const totalSavings = totalBillOver25Years - estimatedSystemCost;
+
+                if (totalSavings > 0) {
+                    savingsAmountSpan.textContent = `$${Math.round(totalSavings).toLocaleString()}`;
+                } else {
+                    savingsAmountSpan.textContent = "$0";
+                }
+                
+                resultDiv.style.display = 'block';
+            });
+
+            // --- Scroll Animations (AOS replacement with Intersection Observer) ---
+            const animatedElements = document.querySelectorAll('[data-aos]');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        const animationType = entry.target.getAttribute('data-aos');
+                        if (animationType === 'fade-up') {
+                            entry.target.style.transform = 'translateY(0)';
+                        } else if (animationType === 'fade-in') {
+                             entry.target.style.transform = 'scale(1)';
+                        }
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            animatedElements.forEach(el => {
+                const delay = el.getAttribute('data-aos-delay') || '0';
+                el.style.transition = `all 0.8s ease-out ${delay}ms`;
+                observer.observe(el);
+            });
+        });
+    </script>
+</body>
+</html>
